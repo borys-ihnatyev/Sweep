@@ -1,12 +1,7 @@
-﻿using System;
-using System.Runtime.Serialization;
-
-namespace Sweep.Core.Marking
+﻿namespace Sweep.Core.Marking
 {
-    [Serializable]
     public partial class KeyHashTag : HashTag
     {
-        [NonSerialized]
         public static readonly HashTag Unchecked = new HashTag("unch");
 
         public KeyHashTag(Key key, string metaValue, KeyNotation notation = KeyNotation.Default)
@@ -68,19 +63,5 @@ namespace Sweep.Core.Marking
         {
             return new KeyHashTag(key);
         }
-
-        #region Serialization
-
-        protected KeyHashTag(SerializationInfo info, StreamingContext context)
-            :this((Key)info.GetValue("Key",typeof(Key)),(KeyNotation)info.GetValue("Notation",typeof(KeyNotation)))
-        { }
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("Key",Key);
-            info.AddValue("Notation",Notation);
-        }
-
-        #endregion
     }
 }

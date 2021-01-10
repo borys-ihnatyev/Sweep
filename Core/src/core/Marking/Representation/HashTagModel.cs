@@ -1,12 +1,8 @@
-﻿using System;
-using System.Text.Json.Serialization;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 
 namespace Sweep.Core.Marking.Representation
 {
-    [Serializable]
     public partial class HashTagModel : SortedSet<HashTag>
     {
         public static HashTagModel Conjoint(IEnumerable<HashTagModel> hashTagModels)
@@ -28,10 +24,6 @@ namespace Sweep.Core.Marking.Representation
 
         public HashTagModel(IEnumerable<HashTag> collection)
             : base(collection, new HashTag.Comparer())
-        { }
-
-        protected HashTagModel(SerializationInfo info, StreamingContext context)
-            : base(info, context)
         { }
 
         public bool IsEmpty()
@@ -67,13 +59,8 @@ namespace Sweep.Core.Marking.Representation
             model.Remove(hashTag);
             return model;
         }
-
-        [Serializable]
         public new class Comparer : HashTag.Comparer, IComparer<HashTagModel>
         {
-            protected Comparer(SerializationInfo info, StreamingContext context) : base(info, context)
-            {
-            }
 
             public Comparer(bool isDesc = false)
                 : base(isDesc)

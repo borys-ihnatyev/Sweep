@@ -2,7 +2,6 @@ using System;
 
 namespace Sweep.Core {
 
-    [Serializable]
     public enum Note {
         C = 0,
         Cis = 1,

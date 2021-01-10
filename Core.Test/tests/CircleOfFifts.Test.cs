@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Sweep.Core.Tests
+namespace Sweep.Core
 {
     [TestFixture]
     public class QuintCircleTest

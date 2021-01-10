@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Text.Json.Serialization;
 using System.Diagnostics.Contracts;
 
 namespace Sweep.Core
 {
-    [Serializable]
     public sealed class Key
     {
-        [JsonConstructor]
         public Key(Note note, Tone tone) => (Note, Tone) = (note, tone);
 
         public Key(Key key) => (Note, Tone) = (key.Note, key.Tone);

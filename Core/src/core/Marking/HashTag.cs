@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Xml.Serialization;
 
 namespace Sweep.Core.Marking
 {
-    [XmlInclude(typeof (KeyHashTag))]
-    [Serializable]
-    public partial class HashTag : IHashTag, ISerializable
+    public partial class HashTag : IHashTag
     {
-        [NonSerialized] public const string Hash = "#";
+        public const string Hash = "#";
 
-        [NonSerialized] public const string Meta = "@";
+        public const string Meta = "@";
 
         private readonly string tagValue;
         private readonly string tagMetaValue;
@@ -53,21 +49,6 @@ namespace Sweep.Core.Marking
             return tag;
         }
 
-        #region Serialization
-
-        protected HashTag(SerializationInfo info, StreamingContext context)
-            : this(info.GetString("TagValue"), info.GetString("TagMetaValue"))
-        {
-        }
-
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("TagValue", tagValue);
-            info.AddValue("TagMetaValue", tagMetaValue);
-        }
-
-        #endregion
-
         public static implicit operator string(HashTag hashTag)
         {
             return hashTag.ToString();
@@ -95,14 +76,13 @@ namespace Sweep.Core.Marking
             }
         }
 
-        [Serializable]
-        public class Comparer : IComparer<HashTag>, IComparer<KeyHashTag>, ISerializable
+        public class Comparer : IComparer<HashTag>, IComparer<KeyHashTag>
         {
-            [NonSerialized] protected readonly int Higher;
+            protected readonly int Higher;
 
-            [NonSerialized] protected readonly int Lower;
+            protected readonly int Lower;
 
-            [NonSerialized] protected readonly int Equal;
+            protected readonly int Equal;
 
             public Comparer(bool isDesc = false)
             {
@@ -118,11 +98,6 @@ namespace Sweep.Core.Marking
                     Lower = -1;
                     Equal = 0;
                 }
-            }
-
-            protected Comparer(SerializationInfo info, StreamingContext context)
-                : this(info.GetBoolean("IsDesc"))
-            {
             }
 
             public int Compare(HashTag x, HashTag y)
@@ -167,11 +142,6 @@ namespace Sweep.Core.Marking
                         return Higher;
 
                 throw new InvalidOperationException("Must allways return in code above");
-            }
-
-            public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
-            {
-                info.AddValue("IsDesc", Higher < Lower);
             }
         }
     }

@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Text.Json;
 using Sweep.Core.Marking;
 using Sweep.Core.Marking.Representation;
 using NUnit.Framework;
 
-namespace Sweep.Core.Tests
+namespace Sweep.Core
 {
     [TestFixture]
     public class KeyTest
@@ -105,15 +104,6 @@ namespace Sweep.Core.Tests
             var amoll2 = new Key(Note.A, Tone.Moll);
 
             Assert.AreEqual(amoll1.GetHashCode(), amoll2.GetHashCode());
-        }
-
-        [Test]
-        public void TestKeySerialization()
-        {
-            var keyExpected = new Key(Note.Cis, Tone.Dur);
-            string s = JsonSerializer.Serialize(keyExpected);
-            var deserializedKey = JsonSerializer.Deserialize<Key>(s);
-            Assert.AreEqual(keyExpected, deserializedKey);
         }
     }
 }
