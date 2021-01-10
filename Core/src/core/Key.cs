@@ -1,71 +1,15 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
-using System.Runtime.Serialization;
-using System.Security.Permissions;
 
 namespace Sweep.Core
 {
     [Serializable]
-    public enum Note
+    public sealed class Key
     {
-        C = 0,
-        Cis = 1,
-        D = 2,
-        Dis = 3,
-        E = 4,
-        F = 5,
-        Fis = 6,
-        G = 7,
-        Gis = 8,
-        A = 9,
-        Ais = 10,
-        B = 11
-    };
+        public Key() {}
+        public Key(Note note, Tone tone) => (Note, Tone) = (note, tone);
 
-    [Serializable]
-    public enum Tone
-    {
-        Dur,
-        Moll,
-    };
-
-    [Serializable]
-    public enum KeyNotation
-    {
-        CamelotWithoutTone,
-        Is_M,
-        IsMollDur,
-        IsMinMaj,
-        IsMinorMajor,
-        Sharp_M,
-        SharpMollDur,
-        SharpMinMaj,
-        SharpMajorMinor,
-        IsStrip_M,
-        IsStripMollDur,
-        IsStripMinMaj,
-        IsStripMinorMajor,
-        Sharp_StripM,
-        SharpStripMollDur,
-        SharpStripMinMaj,
-        SharpStripMajorMinor,
-        Default = IsMollDur
-    }
-
-    [Serializable]
-    public sealed class Key : ISerializable
-    {
-        public Key(Note note, Tone tone)
-        {
-            Note = note;
-            Tone = tone;
-        }
-
-        public Key(Key key)
-        {
-            Note = key.Note;
-            Tone = key.Tone;
-        }
+        public Key(Key key) => (Note, Tone) = (key.Note, key.Tone);
 
         [Pure]
         public Note Note { get; private set; }
@@ -213,23 +157,5 @@ namespace Sweep.Core
         {
             return !(keyLeft == keyRight);
         }
-
-        #region Serialization
-
-        private Key(SerializationInfo info, StreamingContext context)
-        {
-            Note = (Note) info.GetValue("Note", typeof (Note));
-            Tone = (Tone) info.GetValue("Tone", typeof (Tone));
-        }
-
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            if (info == null) throw new ArgumentNullException("info");
-            info.AddValue("Note", Note);
-            info.AddValue("Tone", Tone);
-        }
-
-        #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.Json;
 using Sweep.Core.Marking;
 using Sweep.Core.Marking.Representation;
 using NUnit.Framework;
@@ -112,17 +112,9 @@ namespace Sweep.Core.Tests
         public void TestKeySerialization()
         {
             var keyExpected = new Key(Note.Cis, Tone.Dur);
-            var serializer = new BinaryFormatter();
-            using (var stream = new StreamWriter("CisDur.xml"))
-            {
-                serializer.Serialize(stream.BaseStream, keyExpected);
-            }
-
-            using (var stream = new StreamReader("CisDur.xml"))
-            {
-                var deserializedKey = (Key) serializer.Deserialize(stream.BaseStream);
-                Assert.AreEqual(keyExpected, deserializedKey);
-            }
+            string s = JsonSerializer.Serialize(keyExpected);
+            var deserializedKey = JsonSerializer.Deserialize<Key>(s);
+            Assert.AreEqual(keyExpected, deserializedKey);
         }
     }
 }
