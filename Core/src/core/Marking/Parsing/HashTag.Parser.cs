@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 
 namespace Sweep.Core.Marking
 {
@@ -7,7 +6,6 @@ namespace Sweep.Core.Marking
     {
         public class Parser
         {
-
             /// <summary>
             /// Parses first hashtag occurence in target string
             /// </summary>
@@ -50,7 +48,11 @@ namespace Sweep.Core.Marking
 
             private static HashTag BuildHashTag(string value)
             {
-                var hashTag = new HashTag(value);
+                var values = value.Split(Meta[0]);
+                var tagValue = values.Length > 0 ? values[0] : string.Empty;
+                var tagMetaValue = values.Length > 1 ? values[1] : string.Empty;
+
+                var hashTag = new HashTag(tagValue, tagMetaValue);
                 var keyHashTag = KeyHashTag.Parser.ToKeyHashTag(hashTag);
 
                 if (keyHashTag != null)

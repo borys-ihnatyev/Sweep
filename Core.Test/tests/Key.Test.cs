@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Text.Json;
 using Sweep.Core.Marking;
 using Sweep.Core.Marking.Representation;
