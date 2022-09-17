@@ -66,5 +66,17 @@ namespace System
 
             return index;
         }
+
+        public static int EntryCount(this string value, string entry)
+        {
+            var result = 0;
+
+            for (int i = value.IndexOf(entry); i > -1; i = value.IndexOf(entry, i + 1))
+            {
+                result += 1;
+            }
+
+            return result;
+        }
     }
 }

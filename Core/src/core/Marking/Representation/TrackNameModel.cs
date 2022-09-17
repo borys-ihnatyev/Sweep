@@ -52,7 +52,7 @@ namespace Sweep.Core.Marking.Representation
 
                 if (string.IsNullOrWhiteSpace(value))
                     value = Unknown;
-                value = value.ToUpper();
+                value = value.ToUpperFirstChar();
                 title = value;
             }
         }

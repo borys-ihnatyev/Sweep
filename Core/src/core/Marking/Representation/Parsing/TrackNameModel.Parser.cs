@@ -112,18 +112,26 @@ namespace Sweep.Core.Marking.Representation
                 model.AddRemixArtists(ExtractRemixArtists());
             }
 
-
             private IEnumerable<string> ExtractArtists()
             {
+                var separator = ArtistTitleSeparator;
                 var artistsStringLength = trackName.IndexOf(ArtistTitleSeparator, StringComparison.Ordinal);
 
+                if (artistsStringLength == -1 && trackName.EntryCount(ShortSeparator) == 1)
+                {
+                    separator = ShortSeparator;
+                    artistsStringLength = trackName.IndexOf(ShortSeparator, StringComparison.Ordinal);
+                }
+
                 if (artistsStringLength < 1)
-                    return new[] {Unknown + " Artist"};
+                {
+                   return new[] { Unknown + " Artist" };
+                }
 
                 var artistsString = trackName.Substring(0, artistsStringLength);
-                var artists = artistsString.Split(ArtistsSeparators, StringSplitOptions.RemoveEmptyEntries);
+                var artists = artistsString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 
-                trackName = trackName.Substring(artistsStringLength - 1 + ArtistTitleSeparator.Length);
+                trackName = trackName.Substring(artistsStringLength + separator.Length);
 
                 return artists;
             }

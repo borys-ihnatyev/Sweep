@@ -12,7 +12,6 @@ namespace Sweep.Core.Processing.AutoFolder
 
         [Test]
         public void ThrowsException_OnAddFolderWithSinglePatternThatExists() {
-            Console.WriteLine(Directory.GetCurrentDirectory());
             Assert.That(
                 () => {
                     new HashTagFolderCollection {
