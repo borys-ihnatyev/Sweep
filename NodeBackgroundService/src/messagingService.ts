@@ -14,6 +14,7 @@ export function MessagingService(): MessagingService {
 
   server
     .on("connection", (socket) => {
+      console.log(`Socked connected ${socket.remoteAddress}`);
       sockets.add(socket);
       socket
         .once("close", (hadError) => {
