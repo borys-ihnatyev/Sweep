@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,7 +12,9 @@
 		825E597426A9BD1700B954AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 825E597326A9BD1700B954AC /* Assets.xcassets */; };
 		825E597726A9BD1700B954AC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 825E597626A9BD1700B954AC /* Preview Assets.xcassets */; };
 		825E597A26A9BD1700B954AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 825E597826A9BD1700B954AC /* Main.storyboard */; };
-		825E598726AA4F3E00B954AC /* MenuBarImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825E598626AA4F3E00B954AC /* MenuBarImpl.swift */; };
+		A95C995028DF38EC00973F7C /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = A95C994F28DF38EC00973F7C /* SocketIO */; };
+		A95C995228DF41A300973F7C /* MessagingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C995128DF41A300973F7C /* MessagingService.swift */; };
+		A95C995528DF4F4100973F7C /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C995428DF4F4100973F7C /* Payload.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,7 +26,8 @@
 		825E597926A9BD1700B954AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		825E597B26A9BD1700B954AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		825E597C26A9BD1700B954AC /* MyMenuBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyMenuBar.entitlements; sourceTree = "<group>"; };
-		825E598626AA4F3E00B954AC /* MenuBarImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarImpl.swift; sourceTree = "<group>"; };
+		A95C995128DF41A300973F7C /* MessagingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingService.swift; sourceTree = "<group>"; };
+		A95C995428DF4F4100973F7C /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A95C995028DF38EC00973F7C /* SocketIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,7 +61,7 @@
 		825E596E26A9BD1600B954AC /* MyMenuBar */ = {
 			isa = PBXGroup;
 			children = (
-				825E598626AA4F3E00B954AC /* MenuBarImpl.swift */,
+				A95C995328DF4F2C00973F7C /* MessagingService */,
 				825E596F26A9BD1600B954AC /* AppDelegate.swift */,
 				825E597126A9BD1600B954AC /* ContentView.swift */,
 				825E597326A9BD1700B954AC /* Assets.xcassets */,
@@ -77,6 +81,15 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		A95C995328DF4F2C00973F7C /* MessagingService */ = {
+			isa = PBXGroup;
+			children = (
+				A95C995128DF41A300973F7C /* MessagingService.swift */,
+				A95C995428DF4F4100973F7C /* Payload.swift */,
+			);
+			path = MessagingService;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -93,6 +106,9 @@
 			dependencies = (
 			);
 			name = MyMenuBar;
+			packageProductDependencies = (
+				A95C994F28DF38EC00973F7C /* SocketIO */,
+			);
 			productName = MyMenuBar;
 			productReference = 825E596C26A9BD1600B954AC /* MyMenuBar.app */;
 			productType = "com.apple.product-type.application";
@@ -120,6 +136,9 @@
 				Base,
 			);
 			mainGroup = 825E596326A9BD1600B954AC;
+			packageReferences = (
+				A95C994E28DF38EC00973F7C /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
+			);
 			productRefGroup = 825E596D26A9BD1600B954AC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -147,8 +166,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				825E598726AA4F3E00B954AC /* MenuBarImpl.swift in Sources */,
+				A95C995228DF41A300973F7C /* MessagingService.swift in Sources */,
 				825E597226A9BD1600B954AC /* ContentView.swift in Sources */,
+				A95C995528DF4F4100973F7C /* Payload.swift in Sources */,
 				825E597026A9BD1600B954AC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,7 +307,6 @@
 		825E598026A9BD1700B954AC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MyMenuBar/MyMenuBar.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -315,7 +334,6 @@
 		825E598126A9BD1700B954AC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MyMenuBar/MyMenuBar.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -362,6 +380,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A95C994E28DF38EC00973F7C /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A95C994F28DF38EC00973F7C /* SocketIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A95C994E28DF38EC00973F7C /* XCRemoteSwiftPackageReference "socket.io-client-swift" */;
+			productName = SocketIO;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 825E596426A9BD1600B954AC /* Project object */;
 }

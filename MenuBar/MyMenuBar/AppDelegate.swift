@@ -6,11 +6,13 @@
 //
 import Cocoa
 import SwiftUI
+import SocketIO
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem!
     private var popover: NSPopover!
+    private var messagingService: MessagingService!
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength);
@@ -24,7 +26,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         popover.contentSize = NSSize(width: 150, height: 300)
         popover.behavior = .transient
         popover.contentViewController = NSHostingController(rootView: ContentView())
+        messagingService = MessagingService()
     }
+    
     
     @objc func togglePopover() {
         popover.isShown ? hidePopover() : showPopover()
