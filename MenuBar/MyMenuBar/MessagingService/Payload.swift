@@ -28,13 +28,14 @@ func event(_ eventName: EventName) -> String {
 }
 
 struct ConfirmEditRequest: Decodable {
+    let id: String
     let originalName: String
     let trackInfo: TrackInfo
 }
 
-enum ConfirmEditResponse: Encodable {
+enum ConfirmEditResponseResolution: Encodable {
     enum CodingKeys: String, CodingKey {
-        case resolution, newName
+        case type, newName
     }
     
     case allow
@@ -45,13 +46,19 @@ enum ConfirmEditResponse: Encodable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
         case .allow:
-            try container.encode("allow", forKey: .resolution)
+            try container.encode("allow", forKey: .type)
         case .deny:
-            try container.encode("deny", forKey: .resolution)
+            try container.encode("deny", forKey: .type)
         case .rename(let newName):
-            try container.encode("rename", forKey: .resolution)
+            try container.encode("rename", forKey: .type)
             try container.encode(newName, forKey: .newName)
             
         }
     }
 }
+
+struct ConfirmEditResponse: Encodable {
+    let requestId: String
+    let resolution: ConfirmEditResponseResolution
+}
+

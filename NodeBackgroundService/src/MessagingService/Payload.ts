@@ -1,18 +1,24 @@
 import { TrackInfo } from "../TrackInfo";
 
 export type ConfirmEditRequest = {
+  id: string;
   originalName: string;
   trackInfo: TrackInfo;
 };
 
-export type ConfirmEditResponse =
+export type ConfirmEditResponse = {
+  id: string;
+  resolution: ConfirmEditResponseResolution;
+};
+
+export type ConfirmEditResponseResolution =
   | {
-      resolution: "allow";
+      type: "allow";
     }
   | {
-      resolution: "deny";
+      type: "deny";
     }
   | {
-      resolution: "rename";
+      type: "rename";
       newName: string;
     };

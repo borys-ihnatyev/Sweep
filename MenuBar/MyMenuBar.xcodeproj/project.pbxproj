@@ -15,6 +15,7 @@
 		A95C995028DF38EC00973F7C /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = A95C994F28DF38EC00973F7C /* SocketIO */; };
 		A95C995228DF41A300973F7C /* MessagingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C995128DF41A300973F7C /* MessagingService.swift */; };
 		A95C995528DF4F4100973F7C /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C995428DF4F4100973F7C /* Payload.swift */; };
+		A95C995728DF71BD00973F7C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C995628DF71BD00973F7C /* NotificationService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		825E597C26A9BD1700B954AC /* MyMenuBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyMenuBar.entitlements; sourceTree = "<group>"; };
 		A95C995128DF41A300973F7C /* MessagingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingService.swift; sourceTree = "<group>"; };
 		A95C995428DF4F4100973F7C /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
+		A95C995628DF71BD00973F7C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 		825E596E26A9BD1600B954AC /* MyMenuBar */ = {
 			isa = PBXGroup;
 			children = (
+				A95C995928DF8B0400973F7C /* NotificationService */,
 				A95C995328DF4F2C00973F7C /* MessagingService */,
 				825E596F26A9BD1600B954AC /* AppDelegate.swift */,
 				825E597126A9BD1600B954AC /* ContentView.swift */,
@@ -88,6 +91,14 @@
 				A95C995428DF4F4100973F7C /* Payload.swift */,
 			);
 			path = MessagingService;
+			sourceTree = "<group>";
+		};
+		A95C995928DF8B0400973F7C /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				A95C995628DF71BD00973F7C /* NotificationService.swift */,
+			);
+			path = NotificationService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +180,7 @@
 				A95C995228DF41A300973F7C /* MessagingService.swift in Sources */,
 				825E597226A9BD1600B954AC /* ContentView.swift in Sources */,
 				A95C995528DF4F4100973F7C /* Payload.swift in Sources */,
+				A95C995728DF71BD00973F7C /* NotificationService.swift in Sources */,
 				825E597026A9BD1600B954AC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

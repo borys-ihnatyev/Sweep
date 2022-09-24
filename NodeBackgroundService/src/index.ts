@@ -1,6 +1,7 @@
 import Chokidar from "chokidar";
 import Path from "node:path";
 import OS from "node:os";
+import { randomUUID } from "node:crypto";
 import { parseTrackInfo } from "./parsingService";
 import { MessagingService } from "./MessagingService";
 
@@ -19,10 +20,10 @@ Chokidar.watch(watchPattern, { ignoreInitial: true, depth: 0 }).on(
   async (filePath) => {
     const { name, ext, dir } = Path.parse(filePath);
     try {
-      const trackInfo = await parseTrackInfo(name);
       messagingService.sendMessage("confirmEdit", {
+        id: randomUUID(),
         originalName: name,
-        trackInfo,
+        trackInfo: await parseTrackInfo(name),
       });
     } catch (error) {
       console.error("Parse error", error);

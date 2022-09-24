@@ -12,11 +12,6 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Button {
-            } label: {
-                Text("Notification")
-            }
-            Divider()
-            Button {
                 NSApplication.shared.terminate(nil)
             } label: {
                 Text("Quit")
