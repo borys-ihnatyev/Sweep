@@ -32,6 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, MessagingServiceDelegate, No
     private func setupMenuBar() {
         popover = NSPopover()
         popover.contentSize = NSSize(width: 150, height: 300)
+        popover.setValue(true, forKeyPath: "shouldHideAnchor")
         popover.behavior = .transient
         popover.contentViewController = NSHostingController(
             rootView: MenuBarView()
@@ -58,6 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, MessagingServiceDelegate, No
     func showPopover() {
         let button = statusItem.button!
         popover.show(relativeTo: button.bounds, of: button, preferredEdge: .maxY)
+        NSApplication.shared.activate(ignoringOtherApps: true)
     }
     
     func hidePopover() {
