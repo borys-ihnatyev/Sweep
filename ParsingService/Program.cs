@@ -19,10 +19,17 @@ app.MapPost("/parse", (ParseRequest request) =>
     }
 });
 
+app.MapPost("/rename", (RenameRequest request) =>
+{
+    app.Logger.Log(LogLevel.Information, "rename {0}", request);
+    var model = TrackNameModel.Parser.Parse(request.newName);
+    return Results.Ok(new { });
+});
+
 app.Run();
 
 
-record ParseRequest(string value) { }
+record ParseRequest(string value);
 
 
 record ParseResponse
@@ -56,3 +63,4 @@ record TrackInfo {
     }
 }
 
+record RenameRequest(string path, string newName);

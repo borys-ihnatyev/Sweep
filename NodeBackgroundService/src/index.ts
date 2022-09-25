@@ -1,7 +1,7 @@
 import Path from "node:path";
 import OS from "node:os";
 import { randomUUID } from "node:crypto";
-import { parseTrackInfo } from "./ParsingService";
+import { parseTrackInfo, renameTrack } from "./LegacyService";
 import { ConfirmEditRequest, MessagingService } from "./MessagingService";
 import { WatcherService } from "./WatcherService";
 
@@ -35,3 +35,8 @@ messagingService.addListener("watchToggle", ({ enabled }) => {
     watcherService.stop();
   }
 });
+
+renameTrack({
+  path: "",
+  newName: "HELLO - world",
+}).then((res) => console.log("rename response", res));

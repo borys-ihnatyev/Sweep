@@ -1,4 +1,4 @@
-import { TrackInfo } from "../ParsingService/types";
+import { TrackInfo } from "../LegacyService/types";
 
 type Action<T> = (payload: T) => void;
 
