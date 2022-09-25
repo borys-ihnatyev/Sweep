@@ -7,6 +7,11 @@
 
 import Foundation
 
+enum EventName: String {
+    case confirmEdit
+    case watchToggle
+}
+
 struct TrackInfo: Decodable {
     let fullName: String
     let fullTitle: String
@@ -19,10 +24,6 @@ struct TrackInfo: Decodable {
     let mixType: String
 }
 
-enum EventName: String {
-    case confirmEdit
-}
-
 func event(_ eventName: EventName) -> String {
     return eventName.rawValue
 }
@@ -31,6 +32,11 @@ struct ConfirmEditRequest: Decodable {
     let id: String
     let originalName: String
     let trackInfo: TrackInfo
+}
+
+struct ConfirmEditResponse: Encodable {
+    let requestId: String
+    let resolution: ConfirmEditResponseResolution
 }
 
 enum ConfirmEditResponseResolution: Encodable {
@@ -57,8 +63,7 @@ enum ConfirmEditResponseResolution: Encodable {
     }
 }
 
-struct ConfirmEditResponse: Encodable {
-    let requestId: String
-    let resolution: ConfirmEditResponseResolution
+struct WatchToggleRequest: Encodable {
+    let enabled: Bool
 }
 

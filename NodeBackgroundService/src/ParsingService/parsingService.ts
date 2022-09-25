@@ -1,4 +1,4 @@
-import type { TrackInfo } from "./TrackInfo";
+import type { TrackInfo } from "./types";
 
 const baseUrl = "http://localhost:5018";
 const jsonContentType = "application/json";

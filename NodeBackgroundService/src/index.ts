@@ -1,32 +1,37 @@
-import Chokidar from "chokidar";
 import Path from "node:path";
 import OS from "node:os";
 import { randomUUID } from "node:crypto";
-import { parseTrackInfo } from "./parsingService";
-import { MessagingService } from "./MessagingService";
+import { parseTrackInfo } from "./ParsingService";
+import { ConfirmEditRequest, MessagingService } from "./MessagingService";
+import { WatcherService } from "./WatcherService";
 
 const watchPath = Path.resolve(OS.homedir(), "Downloads");
-
-const allowedExtensions = ["mp3", "m4a", "wav"];
-const watchPattern = `${watchPath}/*.(${allowedExtensions.join("|")})`;
-
+const watcherService = new WatcherService(watchPath);
 const messagingService = new MessagingService();
+
+watcherService.addListener(async ({ name }) => {
+  try {
+    const request: ConfirmEditRequest = {
+      id: randomUUID(),
+      originalName: name,
+      trackInfo: await parseTrackInfo(name),
+    };
+
+    messagingService.sendMessage("confirmEdit", request);
+  } catch (error) {
+    console.error("Parse error", error);
+  }
+});
+
 messagingService.addListener("confirmEdit", (payload) => {
+  // Todo:
   console.log("confirmEdit response:", payload);
 });
 
-Chokidar.watch(watchPattern, { ignoreInitial: true, depth: 0 }).on(
-  "add",
-  async (filePath) => {
-    const { name, ext, dir } = Path.parse(filePath);
-    try {
-      messagingService.sendMessage("confirmEdit", {
-        id: randomUUID(),
-        originalName: name,
-        trackInfo: await parseTrackInfo(name),
-      });
-    } catch (error) {
-      console.error("Parse error", error);
-    }
+messagingService.addListener("watchToggle", ({ enabled }) => {
+  if (enabled) {
+    watcherService.start();
+  } else {
+    watcherService.stop();
   }
-);
+});

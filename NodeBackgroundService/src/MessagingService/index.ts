@@ -1,2 +1,2 @@
 export * from "./MessagingService";
-export * from "./Payload";
+export * from "./types";

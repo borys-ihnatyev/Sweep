@@ -8,28 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		825E597026A9BD1600B954AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825E596F26A9BD1600B954AC /* AppDelegate.swift */; };
-		825E597226A9BD1600B954AC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825E597126A9BD1600B954AC /* ContentView.swift */; };
+		825E597226A9BD1600B954AC /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825E597126A9BD1600B954AC /* MenuBarView.swift */; };
 		825E597426A9BD1700B954AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 825E597326A9BD1700B954AC /* Assets.xcassets */; };
 		825E597726A9BD1700B954AC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 825E597626A9BD1700B954AC /* Preview Assets.xcassets */; };
 		825E597A26A9BD1700B954AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 825E597826A9BD1700B954AC /* Main.storyboard */; };
 		A95C995028DF38EC00973F7C /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = A95C994F28DF38EC00973F7C /* SocketIO */; };
 		A95C995228DF41A300973F7C /* MessagingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C995128DF41A300973F7C /* MessagingService.swift */; };
-		A95C995528DF4F4100973F7C /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C995428DF4F4100973F7C /* Payload.swift */; };
+		A95C995528DF4F4100973F7C /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C995428DF4F4100973F7C /* Types.swift */; };
 		A95C995728DF71BD00973F7C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C995628DF71BD00973F7C /* NotificationService.swift */; };
+		A95C995B28DFC3BE00973F7C /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C995A28DFC3BE00973F7C /* constants.swift */; };
+		A95C995D28DFC50800973F7C /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C995C28DFC50800973F7C /* AppSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		825E596C26A9BD1600B954AC /* MyMenuBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMenuBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		825E596F26A9BD1600B954AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		825E597126A9BD1600B954AC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		825E597126A9BD1600B954AC /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		825E597326A9BD1700B954AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		825E597626A9BD1700B954AC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		825E597926A9BD1700B954AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		825E597B26A9BD1700B954AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		825E597C26A9BD1700B954AC /* MyMenuBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyMenuBar.entitlements; sourceTree = "<group>"; };
 		A95C995128DF41A300973F7C /* MessagingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingService.swift; sourceTree = "<group>"; };
-		A95C995428DF4F4100973F7C /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
+		A95C995428DF4F4100973F7C /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		A95C995628DF71BD00973F7C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		A95C995A28DFC3BE00973F7C /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
+		A95C995C28DFC50800973F7C /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,8 +69,10 @@
 			children = (
 				A95C995928DF8B0400973F7C /* NotificationService */,
 				A95C995328DF4F2C00973F7C /* MessagingService */,
+				A95C995A28DFC3BE00973F7C /* constants.swift */,
+				A95C995C28DFC50800973F7C /* AppSettings.swift */,
 				825E596F26A9BD1600B954AC /* AppDelegate.swift */,
-				825E597126A9BD1600B954AC /* ContentView.swift */,
+				825E597126A9BD1600B954AC /* MenuBarView.swift */,
 				825E597326A9BD1700B954AC /* Assets.xcassets */,
 				825E597826A9BD1700B954AC /* Main.storyboard */,
 				825E597B26A9BD1700B954AC /* Info.plist */,
@@ -88,7 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				A95C995128DF41A300973F7C /* MessagingService.swift */,
-				A95C995428DF4F4100973F7C /* Payload.swift */,
+				A95C995428DF4F4100973F7C /* Types.swift */,
 			);
 			path = MessagingService;
 			sourceTree = "<group>";
@@ -178,10 +184,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A95C995228DF41A300973F7C /* MessagingService.swift in Sources */,
-				825E597226A9BD1600B954AC /* ContentView.swift in Sources */,
-				A95C995528DF4F4100973F7C /* Payload.swift in Sources */,
+				825E597226A9BD1600B954AC /* MenuBarView.swift in Sources */,
+				A95C995D28DFC50800973F7C /* AppSettings.swift in Sources */,
+				A95C995528DF4F4100973F7C /* Types.swift in Sources */,
 				A95C995728DF71BD00973F7C /* NotificationService.swift in Sources */,
 				825E597026A9BD1600B954AC /* AppDelegate.swift in Sources */,
+				A95C995B28DFC3BE00973F7C /* constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,7 +343,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.borys.MacOSMenuBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -362,7 +370,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.borys.MacOSMenuBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

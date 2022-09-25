@@ -1,4 +1,15 @@
-import { TrackInfo } from "../TrackInfo";
+import { TrackInfo } from "../ParsingService/types";
+
+type Action<T> = (payload: T) => void;
+
+export type ListenEvents = {
+  confirmEdit: Action<ConfirmEditResponse>;
+  watchToggle: Action<WatchToggleRequest>;
+};
+
+export type EmitEvents = {
+  confirmEdit: Action<ConfirmEditRequest>;
+};
 
 export type ConfirmEditRequest = {
   id: string;
@@ -22,3 +33,7 @@ export type ConfirmEditResponseResolution =
       type: "rename";
       newName: string;
     };
+
+export type WatchToggleRequest = {
+  enabled: boolean;
+};

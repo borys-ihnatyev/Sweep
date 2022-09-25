@@ -36,9 +36,22 @@ class MessagingService {
         socket.connect()
     }
     
-    func confirmEdit(_ response: ConfirmEditResponse) throws {
-        let message = try encodeMessage(response)
-        socketManager.defaultSocket.emit(event(.confirmEdit), message)
+    func confirmEdit(_ payload: ConfirmEditResponse) {
+        emit(.confirmEdit, payload)
+    }
+    
+    func toggleWatch(_ payload: WatchToggleRequest) {
+        emit(.watchToggle, payload)
+    }
+    
+    private func emit(_ name: EventName, _ payload: Encodable) {
+        print("emit \(name), payload: \(payload)")
+        do {
+            let data = try encodeMessage(payload)
+            socketManager.defaultSocket.emit(event(name), data)
+        } catch {
+            print("Failed to send \(name) with payload: \(payload), error: \(error.localizedDescription)")
+        }
     }
     
     private func onConfirmEdit(_ data: [Any]) {

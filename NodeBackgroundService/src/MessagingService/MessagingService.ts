@@ -1,17 +1,7 @@
 import EventEmitter from "node:events";
 import { Server as HTTPServer } from "node:http";
-import { Server as SocketServer, Socket } from "socket.io";
-import { ConfirmEditRequest, ConfirmEditResponse } from "./Payload";
-
-type Action<T> = (payload: T) => void;
-
-type ListenEvents = {
-  confirmEdit: Action<ConfirmEditResponse>;
-};
-
-type EmitEvents = {
-  confirmEdit: Action<ConfirmEditRequest>;
-};
+import { Server as SocketServer } from "socket.io";
+import { ListenEvents, EmitEvents } from "./types";
 
 export class MessagingService {
   private readonly eventEmitter = new EventEmitter();
@@ -23,10 +13,9 @@ export class MessagingService {
   constructor(port = 3737, host = "localhost") {
     this.socketServer.on("connection", (socket) => {
       console.log("Socked connected");
-
       socket
-        .on("confirmEdit", (payload) => {
-          this.eventEmitter.emit("confirmEdit", payload);
+        .onAny((name, payload) => {
+          this.eventEmitter.emit(name, payload);
         })
         .once("disconnect", () => console.log("Socked disconnected"));
     });
