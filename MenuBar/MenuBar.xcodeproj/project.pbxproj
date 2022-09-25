@@ -21,14 +21,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		825E596C26A9BD1600B954AC /* MyMenuBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMenuBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		825E596C26A9BD1600B954AC /* MenuBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		825E596F26A9BD1600B954AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		825E597126A9BD1600B954AC /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		825E597326A9BD1700B954AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		825E597626A9BD1700B954AC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		825E597926A9BD1700B954AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		825E597B26A9BD1700B954AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		825E597C26A9BD1700B954AC /* MyMenuBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyMenuBar.entitlements; sourceTree = "<group>"; };
+		825E597C26A9BD1700B954AC /* MacOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacOS.entitlements; sourceTree = "<group>"; };
 		A95C995128DF41A300973F7C /* MessagingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingService.swift; sourceTree = "<group>"; };
 		A95C995428DF4F4100973F7C /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		A95C995628DF71BD00973F7C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -51,7 +51,7 @@
 		825E596326A9BD1600B954AC = {
 			isa = PBXGroup;
 			children = (
-				825E596E26A9BD1600B954AC /* MyMenuBar */,
+				825E596E26A9BD1600B954AC /* MacOS */,
 				825E596D26A9BD1600B954AC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,12 +59,12 @@
 		825E596D26A9BD1600B954AC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				825E596C26A9BD1600B954AC /* MyMenuBar.app */,
+				825E596C26A9BD1600B954AC /* MenuBar.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		825E596E26A9BD1600B954AC /* MyMenuBar */ = {
+		825E596E26A9BD1600B954AC /* MacOS */ = {
 			isa = PBXGroup;
 			children = (
 				A95C995928DF8B0400973F7C /* NotificationService */,
@@ -76,10 +76,10 @@
 				825E597326A9BD1700B954AC /* Assets.xcassets */,
 				825E597826A9BD1700B954AC /* Main.storyboard */,
 				825E597B26A9BD1700B954AC /* Info.plist */,
-				825E597C26A9BD1700B954AC /* MyMenuBar.entitlements */,
+				825E597C26A9BD1700B954AC /* MacOS.entitlements */,
 				825E597526A9BD1700B954AC /* Preview Content */,
 			);
-			path = MyMenuBar;
+			path = MacOS;
 			sourceTree = "<group>";
 		};
 		825E597526A9BD1700B954AC /* Preview Content */ = {
@@ -110,9 +110,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		825E596B26A9BD1600B954AC /* MyMenuBar */ = {
+		825E596B26A9BD1600B954AC /* MenuBar */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 825E597F26A9BD1700B954AC /* Build configuration list for PBXNativeTarget "MyMenuBar" */;
+			buildConfigurationList = 825E597F26A9BD1700B954AC /* Build configuration list for PBXNativeTarget "MenuBar" */;
 			buildPhases = (
 				825E596826A9BD1600B954AC /* Sources */,
 				825E596926A9BD1600B954AC /* Frameworks */,
@@ -122,12 +122,12 @@
 			);
 			dependencies = (
 			);
-			name = MyMenuBar;
+			name = MenuBar;
 			packageProductDependencies = (
 				A95C994F28DF38EC00973F7C /* SocketIO */,
 			);
-			productName = MyMenuBar;
-			productReference = 825E596C26A9BD1600B954AC /* MyMenuBar.app */;
+			productName = MacOS;
+			productReference = 825E596C26A9BD1600B954AC /* MenuBar.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -144,7 +144,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 825E596726A9BD1600B954AC /* Build configuration list for PBXProject "MyMenuBar" */;
+			buildConfigurationList = 825E596726A9BD1600B954AC /* Build configuration list for PBXProject "MenuBar" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -160,7 +160,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				825E596B26A9BD1600B954AC /* MyMenuBar */,
+				825E596B26A9BD1600B954AC /* MenuBar */,
 			);
 		};
 /* End PBXProject section */
@@ -328,17 +328,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = MyMenuBar/MyMenuBar.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MacOS/MacOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"MyMenuBar/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"MacOS/Preview Content\"";
 				DEVELOPMENT_TEAM = W33L5A3VWV;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = MyMenuBar/Info.plist;
+				INFOPLIST_FILE = MacOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -355,17 +355,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = MyMenuBar/MyMenuBar.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MacOS/MacOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"MyMenuBar/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"MacOS/Preview Content\"";
 				DEVELOPMENT_TEAM = W33L5A3VWV;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = MyMenuBar/Info.plist;
+				INFOPLIST_FILE = MacOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -381,7 +381,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		825E596726A9BD1600B954AC /* Build configuration list for PBXProject "MyMenuBar" */ = {
+		825E596726A9BD1600B954AC /* Build configuration list for PBXProject "MenuBar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				825E597D26A9BD1700B954AC /* Debug */,
@@ -390,7 +390,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		825E597F26A9BD1700B954AC /* Build configuration list for PBXNativeTarget "MyMenuBar" */ = {
+		825E597F26A9BD1700B954AC /* Build configuration list for PBXNativeTarget "MenuBar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				825E598026A9BD1700B954AC /* Debug */,
