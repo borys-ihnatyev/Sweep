@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Test", "Core.Test\Core.Test.csproj", "{FD279EC6-E31C-4DE0-BAD9-5D143C6135E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParsingService", "ParsingService\ParsingService.csproj", "{964F7B01-02C2-4491-9CD4-3785D142A71A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegacyService", "ParsingService\LegacyService.csproj", "{964F7B01-02C2-4491-9CD4-3785D142A71A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundService", "BackgroundService\BackgroundService.csproj", "{6DCB1910-5459-4EE8-83B1-0A6698057968}"
 EndProject
