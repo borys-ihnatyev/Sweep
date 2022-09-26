@@ -4,6 +4,11 @@ import Chokidar from "chokidar";
 
 const defaultAllowedExtensions = ["mp3", "m4a", "wav"];
 
+export type FileLocation = {
+  parsedPath: Path.ParsedPath;
+  path: string;
+};
+
 export class WatcherService {
   private emitter = new EventEmitter();
   private watcher?: Chokidar.FSWatcher;
@@ -38,7 +43,7 @@ export class WatcherService {
     this.watcher = undefined;
   }
 
-  addListener(cb: (parsedPath: Path.ParsedPath) => void): VoidFunction {
+  addListener(cb: (result: FileLocation) => void): VoidFunction {
     this.emitter.on("add", cb);
 
     return () => {
@@ -47,7 +52,10 @@ export class WatcherService {
   }
 
   private onAdd = (filePath: string): void => {
-    const parsedPath = Path.parse(filePath);
-    this.emitter.emit("add", parsedPath);
+    const result: FileLocation = {
+      path: filePath,
+      parsedPath: Path.parse(filePath),
+    };
+    this.emitter.emit("add", result);
   };
 }

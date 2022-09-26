@@ -1,4 +1,5 @@
 import { TrackInfo } from "../LegacyService/types";
+import { FileLocation } from "../WatcherService";
 
 type Action<T> = (payload: T) => void;
 
@@ -13,12 +14,12 @@ export type EmitEvents = {
 
 export type ConfirmEditRequest = {
   id: string;
-  originalName: string;
+  location: FileLocation;
   trackInfo: TrackInfo;
 };
 
 export type ConfirmEditResponse = {
-  id: string;
+  requestId: string;
   resolution: ConfirmEditResponseResolution;
 };
 

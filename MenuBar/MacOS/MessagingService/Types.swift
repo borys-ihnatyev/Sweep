@@ -28,9 +28,22 @@ func event(_ eventName: EventName) -> String {
     return eventName.rawValue
 }
 
+struct ParsedPath: Decodable {
+    let root: String
+    let dir: String
+    let base: String
+    let ext: String
+    let name: String
+}
+
+struct FileLocation: Decodable {
+    let parsedPath: ParsedPath
+    let path: String
+}
+
 struct ConfirmEditRequest: Decodable {
     let id: String
-    let originalName: String
+    let location: FileLocation
     let trackInfo: TrackInfo
 }
 

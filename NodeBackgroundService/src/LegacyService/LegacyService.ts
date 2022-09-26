@@ -40,25 +40,3 @@ export async function parseTrackInfo(name: string): Promise<TrackInfo> {
       return Promise.reject(parseResponse.error);
     });
 }
-
-type RenameResponse = {};
-
-type RenameRequest = {
-  path: string;
-  newName: string;
-};
-
-export async function renameTrack(
-  request: RenameRequest
-): Promise<ParseResponse> {
-  return fetch(`${baseUrl}/rename`, {
-    method: "POST",
-    body: JSON.stringify(request),
-    headers: {
-      "Content-Type": jsonContentType,
-      Accept: jsonContentType,
-    },
-  })
-    .then((response) => response.json())
-    .then((response) => response as ParseResponse);
-}

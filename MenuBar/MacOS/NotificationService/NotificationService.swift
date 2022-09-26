@@ -87,7 +87,7 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
         
         let content = UNMutableNotificationContent()
         content.title = "Rename?"
-        content.subtitle = request.originalName
+        content.subtitle = request.location.parsedPath.name
         content.body = request.trackInfo.fullName
         content.userInfo = ["requestId": request.id]
         
