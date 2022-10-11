@@ -1,84 +1,42 @@
 import Path from "node:path";
-import FS from "node:fs/promises";
 import OS from "node:os";
-import { randomUUID } from "node:crypto";
-import { Promise as ID3 } from "node-id3";
-import { parseTrackInfo } from "./LegacyService";
-import { ConfirmEditRequest, MessagingService } from "./MessagingService";
+import { MessagingService } from "./MessagingService";
 import { WatcherService } from "./WatcherService";
+import { TrackInfoService } from "./TrackInfoService";
 
 const watchPath = Path.resolve(OS.homedir(), "Downloads");
 const watcherService = new WatcherService(watchPath);
 const messagingService = new MessagingService();
-
-const pendingRequestsStore = new Map<string, ConfirmEditRequest>();
+const trackInfoService = new TrackInfoService();
 
 watcherService.addListener(async (location) => {
   try {
-    const {
-      parsedPath: { name },
-    } = location;
-
-    const request: ConfirmEditRequest = {
-      id: randomUUID(),
-      location,
-      trackInfo: await parseTrackInfo(name),
-    };
-
-    pendingRequestsStore.set(request.id, request);
+    const request = await trackInfoService.tryCreateEditRequest(location);
+    if (!request) {
+      return;
+    }
 
     messagingService.sendMessage("confirmEdit", request);
   } catch (error) {
-    console.error("Parse error", error);
+    console.error("Edit request creation error:", error);
   }
 });
 
-messagingService.addListener("confirmEdit", async (payload) => {
-  const { requestId, resolution } = payload;
-  const request = pendingRequestsStore.get(payload.requestId);
-  if (!request) {
-    return;
-  }
+messagingService.addListener("confirmEdit", (response) => {
+  const { requestId, resolution } = response;
 
   if (resolution.type === "deny") {
-    pendingRequestsStore.delete(requestId);
+    trackInfoService.cancelEditRequest(requestId);
     return;
   }
 
   if (resolution.type === "allow") {
-    const {
-      location: { path, parsedPath },
-      trackInfo,
-    } = request;
-    try {
-      await ID3.update(
-        {
-          artist: trackInfo.artistsString,
-          title: trackInfo.fullTitle,
-          remixArtist: trackInfo.remixArtistsString,
-        },
-        path
-      );
-    } catch (error) {
-      console.log("Update tags error", error);
-    }
-
-    const newPath = Path.resolve(
-      parsedPath.dir,
-      trackInfo.fullName + parsedPath.ext
-    );
-
-    try {
-      await FS.rename(path, newPath);
-    } catch (error) {
-      console.log("Rename error", error);
-    }
-
+    trackInfoService.performEditRequest(requestId);
     return;
   }
 
   if (resolution.type === "rename") {
-    // ToDo
+    trackInfoService.performEditRequest(requestId, resolution.newName);
     return;
   }
 });
