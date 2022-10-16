@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use reqwest::{Client};
 use async_trait::async_trait;
-use super::{TrackInfo, TrackInfoService};
+use super::{TrackInfo, TrackInfoParse};
 
 #[derive(Debug, Serialize)]
 struct ParseRequest {
@@ -14,9 +14,9 @@ struct ParseResponse {
     error: Option<String>,
 }
 
-pub struct RestTrackInfoService;
+pub struct RestTrackInfoParser;
 
-impl RestTrackInfoService {
+impl RestTrackInfoParser {
   async fn parse_request(value: String) -> Result<ParseResponse, reqwest::Error> {
     let body = ParseRequest {
         value,
@@ -35,7 +35,7 @@ impl RestTrackInfoService {
 }
 
 #[async_trait]
-impl TrackInfoService for RestTrackInfoService {
+impl TrackInfoParse for RestTrackInfoParser {
   async fn parse(value: String) -> Option<TrackInfo> {
     let result = Self::parse_request(value).await;
     match result {

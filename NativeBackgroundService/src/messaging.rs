@@ -1,3 +1,4 @@
+pub mod events;
 
 use std::sync::{Arc};
 
@@ -5,9 +6,11 @@ use tokio::{net::{TcpListener, TcpStream}, spawn, task::JoinHandle, select, sync
 use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader};
 use tokio::sync::broadcast::{Sender, channel};
 
+use self::events::{EmitEvent, ListenEvent};
+
 struct State {
-  read_sender: Arc<Sender<String>>,
-  write_sender: Arc<Sender<String>>,
+  read_sender: Arc<Sender<ListenEvent>>,
+  write_sender: Arc<Sender<EmitEvent>>,
 }
 
 impl State {
@@ -28,15 +31,19 @@ pub struct MessagingService {
 }
 
 impl MessagingService {
-  pub fn new(host: &str, port: usize) -> MessagingService {
-    MessagingService {
+  pub fn new(host: &str, port: usize) -> Arc<MessagingService> {
+    Arc::new(MessagingService {
       address: format!("{}:{}", host, port),
       state: Arc::new(State::new()),
-    }
+    })
   }
 
-  pub fn on_message<Handler>(self, handler: Handler) -> Self
-  where Handler: Fn(Arc<Sender<String>>, String) + Send + 'static {
+  pub fn default() -> Arc<MessagingService> {
+    Self::new("127.0.0.1", 3333)
+  }
+
+  pub fn listen<Handler>(&self, handler: Handler) -> &Self
+  where Handler: Fn(Arc<Sender<EmitEvent>>, ListenEvent) + Send + 'static {
     let sender = Arc::clone(&self.state.read_sender);
     let state = Arc::clone(&self.state);
 
@@ -51,13 +58,9 @@ impl MessagingService {
     self
   }
 
-  pub fn send(&self, msg: String) -> Result<(), SendError<String>> {
+  pub fn send(&self, event: EmitEvent) -> Result<(), SendError<EmitEvent>> {
     let state = Arc::clone(&self.state);
-    state.write_sender.send(msg).and(Ok(()))
-  }
-
-  pub fn default() -> MessagingService {
-    Self::new("127.0.0.1", 3333)
+    state.write_sender.send(event).and(Ok(()))
   }
 
   pub fn start(&self) -> JoinHandle<()> {
@@ -81,7 +84,7 @@ impl MessagingService {
     })
   }
 
-  async fn handle_connection(mut stream: TcpStream, state: Arc<State>) -> Option<()> {
+  async fn handle_connection(mut stream: TcpStream, state: Arc<State>) {
     let (reader, mut writer) = stream.split();
     let mut reader = BufReader::new(reader);
     let sender = Arc::clone(&state.read_sender);
@@ -91,16 +94,44 @@ impl MessagingService {
         let mut line = String::new();
 
         select! {
-          result = reader.read_line(&mut line) => {
-            result.unwrap();
-            sender.send(line).unwrap();
-          }
+          result = reader.read_line(&mut line) => match result {
+            Ok(0) => break,
+            Ok(bytes) => {
+              log::info!("read line {} bytes", bytes);
+              match serde_json::from_str(&line) {
+                Ok(event) => {
+                  sender.send(event).unwrap();
+                },
+                Err(error) => {
+                  log::error!("Json deserialize error {:?}", error);
+                }
+              }
+            },
+            Err(error) => {
+              log::error!("Reader error {:?}", error);
+            }
+          },
           result = receiver.recv() => {
-            let message = result.unwrap();
-            writer.write_all(message.as_bytes()).await.unwrap();
+            match result {
+              Ok(message) => {
+                match serde_json::to_string(&message) {
+                  Ok(json) => {
+                    writer.write_all(json.as_bytes()).await.unwrap();
+                  },
+                  Err(error) => {
+                    log::error!("Json serialize error {:?}", error);
+                  }
+                }
+              },
+              Err(error) => {
+                log::error!("Writer error {:?}", error);
+              }
+            }
           }
-        }
+        };
     }
+
+    log::info!("Socket disconnected");
   }
 
 }

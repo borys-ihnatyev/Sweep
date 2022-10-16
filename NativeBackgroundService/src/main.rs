@@ -3,8 +3,8 @@ mod messaging;
 
 use simple_logger::SimpleLogger;
 use tokio::spawn;
-use track_info::{rest::RestTrackInfoService, TrackInfoService};
-use messaging::MessagingService;
+use track_info::{TrackInfo, TrackInfoParse};
+use messaging::{MessagingService, events::{ListenEvent, EmitEvent}};
 
 #[tokio::main]
 async fn main() {
@@ -14,13 +14,20 @@ async fn main() {
         .init()
         .unwrap();
 
-    MessagingService::default()
-        .on_message(|sender, msg| {
+    let messaging_service = MessagingService::default();
+    messaging_service
+        .listen(|_, event| {
             spawn(async move {
-                let result = RestTrackInfoService::parse(msg).await;
-                let msg = serde_json::to_string_pretty(&result).unwrap();
-                sender.send(msg).unwrap();
+                match event {
+                    ListenEvent::ConfirmEdit(response) => {
+                        log::info!("Confirm edit response {:#?}", response);
+                    },
+                    ListenEvent::WatchToggle { enabled } => {
+                        log::info!("Watch enabled {}", enabled);
+                    }
+                }
             });
         })
-        .start().await.unwrap();
+        .start()
+        .await.unwrap()
 }
