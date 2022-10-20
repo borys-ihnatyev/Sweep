@@ -88,7 +88,7 @@ impl MessagingService {
             }
 
             let state = Arc::clone(&state);
-            spawn(Self::handle_connection(stream, state));
+            spawn(handle_connection(stream, state));
           },
           Err(e) => {
             log::error!("couldn't get client: {:?}", e);
@@ -97,56 +97,55 @@ impl MessagingService {
       }
     })
   }
+}
 
-  async fn handle_connection(mut stream: TcpStream, state: Arc<State>) {
-    let (reader, mut writer) = stream.split();
-    let mut reader = BufReader::new(reader);
-    let sender = Arc::clone(&state.read_sender);
-    let mut receiver = state.write_sender.subscribe();
+async fn handle_connection(mut stream: TcpStream, state: Arc<State>) {
+  let (reader, mut writer) = stream.split();
+  let mut reader = BufReader::new(reader);
+  let sender = Arc::clone(&state.read_sender);
+  let mut receiver = state.write_sender.subscribe();
 
-    loop {
-        let mut line = String::new();
+  loop {
+      let mut line = String::new();
 
-        select! {
-          result = reader.read_line(&mut line) => match result {
-            Ok(0) => break,
-            Ok(bytes) => {
-              log::info!("read line {} bytes", bytes);
-              match serde_json::from_str(&line) {
-                Ok(event) => {
-                  sender.send(event).unwrap();
+      select! {
+        result = reader.read_line(&mut line) => match result {
+          Ok(0) => break,
+          Ok(bytes) => {
+            log::info!("read line {} bytes", bytes);
+            match serde_json::from_str(&line) {
+              Ok(event) => {
+                sender.send(event).unwrap();
+              },
+              Err(error) => {
+                log::error!("Json deserialize error {:?}", error);
+              }
+            }
+          },
+          Err(error) => {
+            log::error!("Reader error {:?}", error);
+          }
+        },
+        result = receiver.recv() => {
+          match result {
+            Ok(message) => {
+              match serde_json::to_string(&message) {
+                Ok(json) => {
+                  writer.write_all(json.as_bytes()).await.unwrap();
                 },
                 Err(error) => {
-                  log::error!("Json deserialize error {:?}", error);
+                  log::error!("Json serialize error {:?}", error);
                 }
               }
             },
             Err(error) => {
-              log::error!("Reader error {:?}", error);
-            }
-          },
-          result = receiver.recv() => {
-            match result {
-              Ok(message) => {
-                match serde_json::to_string(&message) {
-                  Ok(json) => {
-                    writer.write_all(json.as_bytes()).await.unwrap();
-                  },
-                  Err(error) => {
-                    log::error!("Json serialize error {:?}", error);
-                  }
-                }
-              },
-              Err(error) => {
-                log::error!("Writer error {:?}", error);
-              }
+              log::error!("Writer error {:?}", error);
             }
           }
-        };
-    }
-
-    state.connected.store(false, Ordering::Release);
-    log::info!("Socket disconnected");
+        }
+      };
   }
 
+  state.connected.store(false, Ordering::Release);
+  log::info!("Socket disconnected");
 }
