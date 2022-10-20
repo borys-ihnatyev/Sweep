@@ -21,7 +21,7 @@ pub enum EmitEvent {
 #[derive(Clone, Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ConfirmEditRequest {
-  pub id: String,
+  pub id: u32,
   pub location: FileLocation,
   pub track_info: TrackInfo,
 }
@@ -29,7 +29,7 @@ pub struct ConfirmEditRequest {
 #[derive(Clone, Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct FileLocation {
-  pub parsed_path: ParsedPath,
+  pub parsed_path: Option<ParsedPath>,
   pub path: String,
 }
 
