@@ -1,6 +1,6 @@
 pub mod events;
 
-use std::sync::{Arc};
+use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 
 use tokio::{net::{TcpListener, TcpStream}, spawn, task::JoinHandle, select, sync::broadcast::error::SendError};
 use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader};
@@ -11,6 +11,7 @@ use self::events::{EmitEvent, ListenEvent};
 struct State {
   read_sender: Arc<Sender<ListenEvent>>,
   write_sender: Arc<Sender<EmitEvent>>,
+  connected: AtomicBool
 }
 
 impl State {
@@ -21,6 +22,7 @@ impl State {
     State {
       read_sender: Arc::new(read.0),
       write_sender: Arc::new(write.0),
+      connected: AtomicBool::new(false),
     }
   }
 }
@@ -31,14 +33,14 @@ pub struct MessagingService {
 }
 
 impl MessagingService {
-  pub fn new(host: &str, port: usize) -> Arc<MessagingService> {
-    Arc::new(MessagingService {
+  pub fn new(host: &str, port: usize) -> MessagingService {
+    MessagingService {
       address: format!("{}:{}", host, port),
       state: Arc::new(State::new()),
-    })
+    }
   }
 
-  pub fn default() -> Arc<MessagingService> {
+  pub fn default() -> MessagingService {
     Self::new("127.0.0.1", 3333)
   }
 
@@ -73,6 +75,18 @@ impl MessagingService {
       loop {
         match listener.accept().await {
           Ok((stream, _)) => {
+            let is_connected = state.connected.compare_exchange(
+              false,
+              true,
+              Ordering::Acquire,
+              Ordering::Relaxed
+            ).is_err();
+
+            if is_connected {
+              log::info!("Already connected");
+              continue;
+            }
+
             let state = Arc::clone(&state);
             spawn(Self::handle_connection(stream, state));
           },
@@ -131,6 +145,7 @@ impl MessagingService {
         };
     }
 
+    state.connected.store(false, Ordering::Release);
     log::info!("Socket disconnected");
   }
 
