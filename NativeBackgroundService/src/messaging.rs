@@ -1,4 +1,4 @@
-pub mod events;
+pub mod event;
 
 use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
 
@@ -6,7 +6,7 @@ use tokio::{net::{TcpListener, TcpStream}, spawn, task::JoinHandle, select, sync
 use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader};
 use tokio::sync::broadcast::{Sender, channel};
 
-use self::events::{EmitEvent, ListenEvent};
+use self::event::{EmitEvent, ListenEvent};
 
 struct State {
   read_sender: Arc<Sender<ListenEvent>>,

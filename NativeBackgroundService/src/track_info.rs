@@ -5,7 +5,7 @@ use std::{collections::HashMap, path::PathBuf, sync::{Mutex, atomic::{AtomicU32,
 use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
 
-use crate::messaging::events::{ConfirmEditRequest, FileLocation};
+use crate::messaging::event::{ConfirmEditRequest, FileLocation};
 
 use self::rest_track_info_parser::RestTrackInfoParser;
 
