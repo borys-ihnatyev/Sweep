@@ -43,6 +43,7 @@ struct FileLocation: Decodable {
 
 struct ConfirmEditRequest: Decodable {
     let id: String
+    let wasEdited: Bool
     let location: FileLocation
     let trackInfo: TrackInfo
 }

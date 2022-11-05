@@ -40,8 +40,8 @@ class MessagingService {
         emit(.confirmEdit, payload)
     }
     
-    func toggleWatch(_ payload: WatchToggleRequest) {
-        emit(.watchToggle, payload)
+    func toggleWatch(_ enabled: Bool) {
+        emit(.watchToggle, WatchToggleRequest(enabled: enabled))
     }
     
     private func emit(_ name: EventName, _ payload: Encodable) {
