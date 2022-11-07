@@ -30,6 +30,7 @@
 		A95C995428DF4F4100973F7C /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		A95C995628DF71BD00973F7C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		A95C995C28DFC50800973F7C /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		A9FD173E29172DE500B10D8B /* MenuContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuContent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +69,7 @@
 				A95C995C28DFC50800973F7C /* AppSettings.swift */,
 				825E596F26A9BD1600B954AC /* AppDelegate.swift */,
 				825E597126A9BD1600B954AC /* MenuBarApp.swift */,
+				A9FD173E29172DE500B10D8B /* MenuContent.swift */,
 				825E597326A9BD1700B954AC /* Assets.xcassets */,
 				825E597B26A9BD1700B954AC /* Info.plist */,
 				825E597C26A9BD1700B954AC /* MacOS.entitlements */,

@@ -5,7 +5,8 @@ type Action<T> = (payload: T) => void;
 
 export type ListenEvents = {
   confirmEdit: Action<ConfirmEditResponse>;
-  watchToggle: Action<WatchToggleRequest>;
+  watchToggle: Action<ToggleRequest>;
+  useNotificationsToggle: Action<ToggleRequest>;
 };
 
 export type EmitEvents = {
@@ -35,6 +36,6 @@ export type ConfirmEditResponseResolution =
       newName: string;
     };
 
-export type WatchToggleRequest = {
+type ToggleRequest = {
   enabled: boolean;
 };

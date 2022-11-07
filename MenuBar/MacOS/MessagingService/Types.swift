@@ -9,7 +9,8 @@ import Foundation
 
 enum EventName: String {
     case confirmEdit
-    case watchToggle
+    case useWatcher
+    case useNotifications
 }
 
 struct TrackInfo: Decodable {
@@ -43,7 +44,6 @@ struct FileLocation: Decodable {
 
 struct ConfirmEditRequest: Decodable {
     let id: String
-    let wasEdited: Bool
     let location: FileLocation
     let trackInfo: TrackInfo
 }
@@ -77,7 +77,10 @@ enum ConfirmEditResponseResolution: Encodable {
     }
 }
 
-struct WatchToggleRequest: Encodable {
+struct ToggleRequest: Encodable {
     let enabled: Bool
+    init(_ enabled: Bool) {
+        self.enabled = enabled
+    }
 }
 

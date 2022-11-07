@@ -18,22 +18,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, MessagingServiceDelegate, No
         messagingService.deleagate = self
     }
     
-    func request(_ payload: ConfirmEditRequest) {
+    func request(_ request: ConfirmEditRequest) {
         Task {
-            print("REQUEST", payload);
-            try await notificationService.notification(for: payload)
+            print(request)
+            try await notificationService.notification(for: request)
         }
     }
     
     func userRespond(forRequestId id: String, with option: EditResponseOption) {
-        print("respond with", id, option)
         switch option {
         case .allow:
             messagingService.confirmEdit(.init(requestId: id, resolution: .allow))
         case .deny:
             messagingService.confirmEdit(.init(requestId: id, resolution: .deny))
         default:
-            print("Not supported option")
+            print("Not supported notification option")
         }
     }
 }

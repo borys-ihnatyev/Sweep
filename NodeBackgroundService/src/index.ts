@@ -9,16 +9,26 @@ const watcherService = new WatcherService(watchPath);
 const messagingService = new MessagingService();
 const trackInfoService = new TrackInfoService();
 
+// ToDo use conf
+let shouldUseNotification = true;
+
 watcherService.addListener(async (location) => {
   try {
+    console.log("File renamed", location.parsedPath.name);
+
     const request = await trackInfoService.tryCreateEditRequest(location);
     if (!request) {
+      console.log("Skip rename");
       return;
     }
 
-    messagingService.sendMessage("confirmEdit", request);
+    if (shouldUseNotification) {
+      messagingService.sendMessage("confirmEdit", request);
+    } else {
+      await trackInfoService.performEditRequest(request.id);
+    }
   } catch (error) {
-    console.error("Edit request creation error:", error);
+    console.error("Edit request error:", error);
   }
 });
 
@@ -47,6 +57,10 @@ messagingService.addListener("watchToggle", ({ enabled }) => {
   } else {
     watcherService.stop();
   }
+});
+
+messagingService.addListener("useNotificationsToggle", ({ enabled }) => {
+  shouldUseNotification = enabled;
 });
 
 watcherService.start();

@@ -15,6 +15,7 @@ export class MessagingService {
       console.log("Socked connected");
       socket
         .onAny((name, payload) => {
+          console.log(`${name}: ${JSON.stringify(payload, null, 2)}`);
           this.eventEmitter.emit(name, payload);
         })
         .once("disconnect", () => console.log("Socked disconnected"));

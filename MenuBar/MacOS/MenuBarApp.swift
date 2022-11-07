@@ -11,29 +11,24 @@ import UserNotifications
 @main
 struct MenuBarApp: App {
     @NSApplicationDelegateAdaptor var appDelegate: AppDelegate
-    @StateObject var settings = AppSettings()
+    @StateObject var settings = AppSettingsStore()
+    
+    var icon: String {
+        if let settings = settings.value {
+            return settings.watchEnabled ? "eye" : "eye.slash"
+        }
+
+        return "eye"
+    }
     
     var body: some Scene {
         MenuBarExtra(
             "MenuBar",
-            systemImage: settings.watchEnabled ? "eye" : "eye.slash"
+            systemImage: icon
         ) {
-            VStack {
-                Button {
-                    settings.watchEnabled.toggle()
-                } label: {
-                    Text(settings.watchEnabled ? "Disable" : "Enable")
-                }.keyboardShortcut("e")
-                
-                Divider()
-                
-                Button {
-                    NSApplication.shared.terminate(nil)
-                } label: {
-                    Text("Quit")
-                }
-                .keyboardShortcut("q")
-            }
-        }.onChange(of: settings.watchEnabled, perform: appDelegate.messagingService.toggleWatch)
+            
+        }
+        .onChange(of: settings.watchEnabled, perform: appDelegate.messagingService.useWatcher)
+        .onChange(of: settings.notificationsEnabled, perform: appDelegate.messagingService.useNotifications)
     }
 }

@@ -26,7 +26,7 @@ class MessagingService {
         let socket = socketManager.defaultSocket
         
         socket.on(clientEvent: .connect) {data, ack in
-            print("Socket connected")
+            print("Connected")
         }
         
         socket.on(event(.confirmEdit)) {data, _ in
@@ -40,8 +40,12 @@ class MessagingService {
         emit(.confirmEdit, payload)
     }
     
-    func toggleWatch(_ enabled: Bool) {
-        emit(.watchToggle, WatchToggleRequest(enabled: enabled))
+    func useWatcher(_ enabled: Bool) {
+        emit(.useWatcher, ToggleRequest(enabled))
+    }
+    
+    func useNotifications(_ enabled: Bool) {
+        emit(.useNotifications, ToggleRequest(enabled))
     }
     
     private func emit(_ name: EventName, _ payload: Encodable) {

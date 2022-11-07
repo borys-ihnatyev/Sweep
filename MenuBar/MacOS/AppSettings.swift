@@ -8,9 +8,15 @@
 import Foundation
 
 class AppSettings: ObservableObject {
-    @Published var watchEnabled = UserDefaults.standard.bool(forKey: "watchEnabled") {
-        didSet {
-            UserDefaults.standard.setValue(watchEnabled, forKey: "watchEnabled")
-        }
+    @Published var watchEnabled: Bool
+    @Published var autoRenameEnabled: Bool
+    
+    init(watchEnabled: Bool, autoRenameEnabled: Bool) {
+        self.watchEnabled = watchEnabled
+        self.autoRenameEnabled = autoRenameEnabled
     }
+}
+
+class AppSettingsStore: ObservableObject {
+    @Published var value: Optional<AppSettings> = .none;
 }

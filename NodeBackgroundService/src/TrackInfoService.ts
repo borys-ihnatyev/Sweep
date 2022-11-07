@@ -14,10 +14,10 @@ export class TrackInfoService {
   async tryCreateEditRequest(
     fileLocation: FileLocation
   ): Promise<ConfirmEditRequest | undefined> {
-    const shouldCreate = await this.isEdited(fileLocation);
+    /*     const shouldCreate = await this.isEdited(fileLocation);
     if (!shouldCreate) {
       return;
-    }
+    } */
 
     const {
       parsedPath: { name },
